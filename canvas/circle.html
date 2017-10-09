@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	canvas{
+		border: 1px solid #333;
+	}
+</style>
+<body>
+	<canvas width="300px" height="300px"></canvas>
+</body>
+<script>
+	window.onload=function(){
+		let canvas=document.querySelector('canvas');
+		let ctx=canvas.getContext("2d");
+		for(let i=0;i<4;i++){
+			for(let j=0;j<3;j++){
+				let x=(2*j+1)*30+20*j,
+				y=(2*i+1)*30+20*i,
+				enddeg=Math.PI+j*Math.PI/2,
+				dir=!!(i%2);
+				// let dir=i%2 ? true : false;
+				ctx.beginPath();
+				ctx.arc(x, y, 30, 0, enddeg,dir)
+				if(i>1){
+					ctx.fillStyle='skyblue';
+					ctx.fill()
+				}else{
+					ctx.strokeStyle='yellow';
+					ctx.stroke();
+				}
+			}
+		}
+	}
+</script>
+</html>

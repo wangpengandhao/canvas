@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>划线</title>
+</head>
+<style>
+	canvas{
+		border: 1px solid #333;
+	}
+</style>
+<body>
+	<canvas width="300" height="300"></canvas>
+	<button class="chehui">撤回</button>
+</body>
+<script>
+	// 画直线
+	window.onload=function(){
+		let canvas=document.querySelector('canvas');
+		let btn=document.querySelector('.chehui');
+		let ctx=canvas.getContext("2d");
+		let arr=[];
+		canvas.onmousedown=function(e){
+			let dx=e.offsetX,dy=e.offsetY;
+			canvas.onmousemove=function(e){
+				let mx=e.offsetX,my=e.offsetY;
+				ctx.clearRect(0, 0, canvas.width,canvas.height);
+				if(arr.length){
+				ctx.putImageData(arr[arr.length-1], 0,0);
+				}
+				ctx.beginPath();
+				ctx.moveTo(dx, dy);
+				ctx.lineTo(mx, my);
+				ctx.stroke();
+			}
+			canvas.onmouseup=function(){
+				arr.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+				canvas.onmousemove=null;
+				canvas.onmouseup=null;
+			}
+		}
+		btn.onclick=function(){
+			if(!arr[arr.length-1]){return}
+			arr.pop();
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.putImageData(arr[arr.length-1],0,0)
+		}
+	}
+	// 画圆
+	/*window.onload=function(){
+		let canvas=document.querySelector('canvas');
+		console.log(canvas);
+		let ctx=canvas.getContext("2d");
+		canvas.onmousedown=function(e){
+			let dx=e.offsetX,dy=e.offsetY;
+			canvas.onmousemove=function(e){
+				let mx=e.offsetX,my=e.offsetY;
+				ctx.clearRect(0, 0, canvas.width,canvas.height);
+				ctx.beginPath();
+				r=Math.sqrt(Math.pow(mx-dx,2)+Math.pow(my-dy,2))
+				ctx.arc(dx, dy, r, 0, Math.PI*2)
+				ctx.stroke();
+			}
+			canvas.onmouseup=function(){
+				canvascanvas.onmousemove=null;
+				canvascanvas.onmouseup=null;
+			}
+		}
+	}*/
+	// 多边形
+	/*window.onload=function(){
+		let canvas=document.querySelector('canvas');
+		console.log(canvas);
+		let ctx=canvas.getContext("2d");
+		canvas.onmousedown=function(e){
+			let dx=e.offsetX,dy=e.offsetY;
+			canvas.onmousemove=function(e){
+				let mx=e.offsetX,my=e.offsetY;
+				ctx.clearRect(0, 0, canvas.width,canvas.height);
+				ctx.beginPath();
+				r=Math.sqrt(Math.pow(mx-dx,2)+Math.pow(my-dy,2))
+				polyJ(dx,dy,5,r)
+				ctx.stroke();
+			}
+			canvas.onmouseup=function(){
+				canvascanvascanvas.onmousemove=null;
+				canvascanvascanvas.onmouseup=null;
+			}
+		}
+		function polyJ(x1,y1,n,r){
+			let deg=Math.PI/n;
+			ctx.moveTo(x1+r, y1);
+			for(let i=0;i<2*n;i++){
+				let r1;
+				r1=i%2==0 ? r:r/2;
+				let x=x1+Math.cos(deg*i)*r1,
+					y=y1+Math.sin(deg*i)*r1;
+					ctx.lineTo(x, y);
+			}
+			ctx.closePath();
+			ctx.stroke();
+		}
+	}*/
+	// 铅笔
+	/*window.onload=function(){
+		let canvas=document.querySelector('canvas');
+		console.log(canvas);
+		let ctx=canvas.getContext("2d");
+		canvas.onmousedown=function(e){
+			let dx=e.offsetX,dy=e.offsetY;
+			ctx.beginPath();
+			ctx.moveTo(dx, dy);
+			canvas.onmousemove=function(e){
+				let mx=e.offsetX,my=e.offsetY;				
+				ctx.lineTo(mx, my);
+				ctx.stroke();
+			}
+			canvas.onmouseup=function(){
+				canvas.onmousemove=null;
+				canvas.onmouseup=null;
+			}
+		}
+	}*/
+</script>
+</html>

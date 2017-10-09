@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	canvas{
+		border: 1px solid #000;
+	}
+</style>
+<body>
+	<canvas width="600px" height="300px"></canvas>
+</body>
+<script>
+	window.onload=function(){
+		let canvas=document.querySelector('canvas');
+		let ctx=canvas.getContext("2d");
+		// 头
+		ctx.beginPath();
+		ctx.arc(300, 150, 150, 0, Math.PI*2);
+		ctx.stroke();
+		ctx.closePath();
+		// 左眼
+		ctx.beginPath();
+		ctx.arc(250,100,20,0,Math.PI*2);
+		ctx.stroke();
+		ctx.closePath();
+		// 右眼
+		ctx.beginPath();
+		ctx.arc(350,100,20,0,Math.PI*2);
+		ctx.stroke();
+		ctx.closePath();
+		// 嘴
+		ctx.beginPath();
+		ctx.arc(300,180,80,0,Math.PI);
+		ctx.stroke();
+		ctx.closePath();
+		// 鼻子
+		ctx.fillStyle='skyblue';
+		ctx.beginPath();
+		ctx.moveTo(300, 120);
+		ctx.lineTo(320, 160);
+		ctx.lineTo(280, 160);
+		ctx.lineTo(300, 120);
+		ctx.closePath();
+		ctx.fill();
+	}
+</script>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>eraser</title>
+</head>
+<style>
+	.box{
+		width: 300px;
+		height: 300px;
+		border: 1px solid #333;
+		position: relative;
+	}
+	.opcity{
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	.eraser{
+		width: 10px;
+		height: 10px;
+		border: 1px solid #333;
+		position: absolute;
+		left: 0;
+		top: 0;
+		display: none;
+	}
+</style>
+<body>
+	<div class="box">
+		<div class="eraser"></div>
+		<canvas width="300" height="300"></canvas>
+		<div class="opcity"></div>
+	</div>
+</body>
+<script>
+	window.onload=function(){
+		let xp=document.querySelector('.eraser');
+		let opcity=document.querySelector('.opcity')
+		let canvas=document.querySelector('canvas');
+		let ctx=canvas.getContext("2d");
+		polyJ(5,100);
+		function polyJ(n,r){
+			let deg=Math.PI/n;
+			ctx.moveTo(250, 150);
+			for(let i=0;i<2*n;i++){
+				let r1;
+				r1=i%2==0 ? r:r/2;
+				let x=150+Math.cos(deg*i)*r1,
+					y=150+Math.sin(deg*i)*r1;
+					ctx.lineTo(x, y);
+			}
+			ctx.closePath();
+			ctx.stroke();
+		}
+		opcity.onmousedown=function(e){
+			opcity.onmousemove=function(e){
+				let mx=e.offsetX-5,my=e.offsetY-5;
+				xp.style.display='block';
+				xp.style.left=`${mx}px`;
+				xp.style.top=`${my}px`;
+				ctx.clearRect(mx, my, 10, 10)
+			}
+			opcity.onmouseup=function(){
+				xp.style.display='none'
+				opcity.onmousemove=null;
+				opcity.onmouseup=null;
+			}
+		}
+	}
+</script>
+</html>
